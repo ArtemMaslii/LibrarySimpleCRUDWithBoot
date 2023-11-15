@@ -4,18 +4,27 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>New Person</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css"/>
 </head>
 <body>
+<div class="container mt-5">
     <form th:method="POST" th:action="@{/people}" th:object="${person}">
-        <label for="fullName">Enter Full Name: </label>
-        <input id="fullName" type="text" th:field="*{fullName}"/>
-        <div style="color:red" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Full Name Error</div>
-        <br/>
-        <label for="yearOfBirth">Enter Year of Birth: </label>
-        <input type="text" th:field="*{yearOfBirth}" id="yearOfBirth"/>
-        <div style="color:red" th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}">Full Name Error</div>
-        <br/>
-        <input type="submit" value="Create!" />
+        <div class="mb-3">
+            <label for="fullName" class="form-label">Full Name:</label>
+            <input id="fullName" type="text" th:field="*{fullName}" class="form-control" style="width: 320px"/>
+            <div class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="yearOfBirth" class="form-label">Year of Birth:</label>
+            <input id="yearOfBirth" type="text" th:field="*{yearOfBirth}" class="form-control" style="width: 320px"/>
+            <div class="text-danger" th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}"></div>
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Create!</button>
+        </div>
     </form>
+</div>
 </body>
 </html>

@@ -3,22 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>New book</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css"/>
 </head>
 <body>
+<div class="container mt-5">
     <form th:method="POST" th:action="@{/books}" th:object="${book}">
-        <label for="name">Enter title of the book: </label>
-        <input type="text" th:field="*{title}" id="name" />
-        <div style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title error</div>
-        <br/>
-        <label for="author">Enter author of the book: </label>
-        <input type="text" th:field="*{author}" id="author" />
-        <div style="color:red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Title error</div>
-        <br/>
-        <label for="yearOfPublish">Enter year of publish: </label>
-        <input type="text" th:field="*{yearOfPublish}" id="yearOfPublish" />
-        <div style="color:red" th:if="${#fields.hasErrors('yearOfPublish')}" th:errors="*{yearOfPublish}">Title error</div>
-        <br/>
-        <input type="submit" value="Create!">
+        <div class="mb-3">
+            <label for="name" class="form-label">Enter Title of the Book:</label>
+            <input type="text" th:field="*{title}" id="name" class="form-control" style="width: 320px"/>
+            <div class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="author" class="form-label">Enter Author of the Book:</label>
+            <input type="text" th:field="*{author}" id="author" class="form-control" style="width: 320px"/>
+            <div class="text-danger" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="yearOfPublish" class="form-label">Enter Year of Publish:</label>
+            <input type="text" th:field="*{yearOfPublish}" id="yearOfPublish" class="form-control" style="width: 320px"/>
+            <div class="text-danger" th:if="${#fields.hasErrors('yearOfPublish')}" th:errors="*{yearOfPublish}"></div>
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Create!</button>
+        </div>
     </form>
+</div>
 </body>
 </html>

@@ -57,20 +57,14 @@ public class BooksService {
     @Transactional
     public void releaseBook(int bookId) {
         booksRepository.findById(bookId).ifPresent(
-                book -> {
-                    book.setOwner(null);
-                    book.setTakenAt(null);
-                    }
+                book -> book.setOwner(null)
         );
     }
 
     @Transactional
     public void assignBook(int bookId, Person owner) {
         booksRepository.findById(bookId).ifPresent(
-                book -> {
-                    book.setOwner(owner);
-                    book.setTakenAt(new Date());
-                }
+                book -> book.setOwner(owner)
         );
     }
 

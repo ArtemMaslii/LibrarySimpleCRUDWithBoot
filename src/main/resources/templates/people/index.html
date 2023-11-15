@@ -3,17 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css"/>
 </head>
 <body>
+<div class="container mt-5">
+<h1 class="text-center display-4">List of People</h1>
+
+<hr class="my-4"/>
 
 <div th:each="person: ${personList}">
     <a th:href="@{/people/{id}(id=${person.getPersonId()})}"
-        th:text="${person.getFullName() + ' ' + person.getYearOfBirth()}">user</a>
+       th:text="${person.getFullName() + ' ' + person.getYearOfBirth()}"
+       class="btn btn-outline-secondary" >user</a>
 </div>
 
-<br/>
-<hr/>
-
-<a href="/people/new">Add Person</a>
+<hr class="my-4"/>
+    <a href="/people/new" class="btn btn-success btn-lg mb-3">Add Person</a>
+    <a href="/books" class="btn btn-secondary btn-lg mb-3">Go to Library Page</a>
+</div>
 </body>
 </html>

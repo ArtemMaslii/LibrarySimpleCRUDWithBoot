@@ -4,38 +4,49 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Show</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css"/>
 </head>
-<body>
-    <p th:text="${person.getFullName() + ', ' + person.getYearOfBirth()}">VALUE</p>
+<body class="container mt-5">
+<div class="mb-3">
+    <p th:text="${person.getFullName() + ', ' + person.getYearOfBirth()}" class="lead">Person Details</p>
+</div>
 
-    <div th:if="${books.isEmpty()}">
+<div th:if="${books.isEmpty()}" class="mb-3">
+    <div class="alert alert-info" role="alert">
         <p>Person hasn't taken any book yet.</p>
-        <hr/>
     </div>
+    <hr class="my-4"/>
+</div>
 
-    <div th:if="${!books.isEmpty()}">
-        <hr/>
-        <b>Books:</b>
-        <br/>
-        <table th:each="book: ${books}">
-            <tr>
-                <td>
-                    <span th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYearOfPublish()}"
-                    th:style="${book.isExpired()} ? 'color: red' : 'color: black'">
-                        book
-                    </span>
-                </td>
-            </tr>
-        </table>
-        <hr/>
-    </div>
+<div th:if="${!books.isEmpty()}" class="mb-3">
+    <hr class="my-4"/>
+    <b>Books:</b>
+    <br/>
+    <table class="table table-striped">
+        <tbody>
+        <tr th:each="book: ${books}">
+            <td>
+                        <span th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYearOfPublish()}">
+                            Book
+                        </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <hr class="my-4"/>
+</div>
 
-<form th:method="GET" th:action="@{/people/{personId}/edit(personId=${person.getPersonId()})}">
-    <input type="submit" value="Edit"/>
+<form th:method="GET" th:action="@{/people/{personId}/edit(personId=${person.getPersonId()})}" class="mb-3">
+    <button type="submit" class="btn btn-primary">Edit</button>
 </form>
 
-<form th:method="DELETE" th:action="@{/people/{personId}(personId=${person.getPersonId()})}">
-    <input type="submit" value="Delete"/>
+<form th:method="POST" th:action="@{/people/{personId}/delete(personId=${person.getPersonId()})}" class="mb-3">
+    <input type="hidden" name="_method" value="DELETE"/>
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
+
+<form th:method="GET" th:action="@{/people}" class="mb-3">
+    <button type="submit" class="btn btn-secondary">Return to List of People</button>
 </form>
 </body>
 </html>

@@ -4,41 +4,53 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Show</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css"/>
 </head>
-<body>
-    <p th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYearOfPublish()}">VALUE</p>
+<body class="container mt-5">
+<div class="mb-3">
+    <p th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYearOfPublish()}" class="lead">Book Details</p>
+</div>
 
-<div th:if="${owner}">
-    <span>Book is taken by: </span><span th:text="${owner.getFullName()}">Person Name</span>
+<div th:if="${owner}" class="mb-3">
+    <div class="alert alert-info" role="alert">
+        Book is taken by: <span th:text="${owner.getFullName()}">Person Name</span>
+    </div>
 
-    <form th:method="PATCH" th:action="@{/books/{bookId}/release(bookId=${book.getBookId()})}">
-        <input type="submit" value="Return the book" />
+    <form th:method="POST" th:action="@{/books/{bookId}/release(bookId=${book.getBookId()})}">
+        <input type="hidden" name="_method" value="PATCH"/>
+        <button type="submit" class="btn btn-warning">Return the book</button>
     </form>
 </div>
-<div th:if="${people}">
-    <span>This book is currently free. Who will take it?</span>
-    <form th:method="post" th:action="@{/books/{bookId}/assign(bookId=${book.getBookId()})}">
-        <label for="person">Choose Person</label>
-        <select id="person" name="personId">
+
+<div th:if="${people}" class="mb-3">
+    <div class="alert alert-success" role="alert">
+        This book is currently free. Who will take it?
+    </div>
+
+    <form th:method="post" th:action="@{/books/{bookId}/assign(bookId=${book.getBookId()})}" class="mb-3">
+        <label for="person" class="form-label">Choose Person</label>
+        <select id="person" name="personId" class="form-select">
             <optgroup label="Select Person">
-            <option th:each="person : ${people}" th:value="${person.getPersonId()}" th:text="${person.getFullName()}"></option>
+                <option th:each="person : ${people}" th:value="${person.getPersonId()}" th:text="${person.getFullName()}"></option>
             </optgroup>
         </select>
-        <input type="submit" value="Take the book">
+        <button type="submit" class="btn btn-success">Take the book</button>
     </form>
 </div>
-<hr/>
 
-   <form th:method="GET" th:action="@{/books/{bookId}/edit(bookId=${book.getBookId()})}">
-        <input type="submit" value="Edit">
-    </form>
+<hr class="my-4"/>
 
-    <form th:method="DELETE" th:action="@{/books/{bookId}(bookId=${book.getBookId()})}">
-        <input type="submit" value="Delete"/>
-    </form>
+<form th:method="GET" th:action="@{/books/{bookId}/edit(bookId=${book.getBookId()})}" class="mb-3">
+    <button type="submit" class="btn btn-primary">Edit</button>
+</form>
 
-    <form th:method="GET" th:action="@{/books}">
-        <input type="submit" value="Return to Library">
-    </form>
+<form th:method="POST" th:action="@{/books/{bookId}/delete(bookId=${book.getBookId()})}" class="mb-3">
+    <input type="hidden" name="_method" value="DELETE"/>
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
+
+<form th:method="GET" th:action="@{/books}" class="mb-3">
+    <button type="submit" class="btn btn-secondary">Return to Library</button>
+</form>
 </body>
 </html>

@@ -3,18 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit your Person</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css"/>
 </head>
 <body>
-    <form th:method="PATCH" th:action="@{/people/{personId}(personId=${person.getPersonId()})}" th:object="${person}">
-        <label for="fullName">Enter Full Name: </label>
-        <input id="fullName" type="text" th:field="*{fullName}"/>
+<div class="container mt-5">
+    <form th:method="POST" th:action="@{/people/{personId}/update(personId=${person.getPersonId()})}" th:object="${person}">
+        <input type="hidden" name="_method" value="PATCH"/>
+        <div class="mb-3 row">
+            <label for="fullName" class="col-sm-2 col-form-label">Enter Full Name: </label>
+        </div>
+        <div class="col-sm-10">
+        <input id="fullName" type="text" th:field="*{fullName}" class="form-control" style="width: 320px"/>
         <div style="color:red" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Full Name Error</div>
-        <br/>
-        <label for="yearOfBirth">Enter Year of Birth: </label>
-        <input id="yearOfBirth" type="text" th:field="*{yearOfBirth}"/>
+        </div>
+        <div class="mb-3 row">
+            <label for="yearOfBirth" class="col-sm-2 col-form-label">Enter Full Name: </label>
+        </div>
+        <div class="col-sm-10">
+        <input id="yearOfBirth" type="text" th:field="*{yearOfBirth}" class="form-control" style="width: 320px"/>
         <div style="color:red" th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}">Full Name Error</div>
-        <br/>
+        </div>
         <input type="submit" value="Edit!" />
     </form>
+</div>
 </body>
 </html>

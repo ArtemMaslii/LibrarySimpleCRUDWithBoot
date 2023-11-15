@@ -11,7 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping({"/people"})
+@RequestMapping("/people")
 public class PersonController {
     private final PeopleService peopleService;
 
@@ -55,7 +55,7 @@ public class PersonController {
         return "people/edit";
     }
 
-    @PatchMapping({"/{personId}"})
+    @PostMapping({"/{personId}/update"})
     public String update(@ModelAttribute("person") @Valid Person person, BindingResult result, @PathVariable("personId") int personId) {
         if (result.hasErrors()) {
             return "people/edit";
@@ -65,7 +65,7 @@ public class PersonController {
         }
     }
 
-    @DeleteMapping({"/{personId}"})
+    @PostMapping({"/{personId}/delete"})
     public String delete(@PathVariable("personId") int personId) {
         this.peopleService.delete(personId);
         return "redirect:/people";

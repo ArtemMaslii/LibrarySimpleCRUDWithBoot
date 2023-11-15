@@ -71,7 +71,7 @@ public class BookController {
         return "books/edit";
     }
 
-    @PatchMapping({"/{bookId}"})
+    @PostMapping({"/{bookId}/update"})
     public String update(@ModelAttribute("book") @Valid Book book, BindingResult result, @PathVariable("bookId") int bookId) {
         if (result.hasErrors()) {
             return "books/edit";
@@ -81,13 +81,13 @@ public class BookController {
         }
     }
 
-    @DeleteMapping({"/{bookId}"})
+    @PostMapping({"/{bookId}/delete"})
     public String delete(@PathVariable("bookId") int bookId) {
         this.booksService.delete(bookId);
         return "redirect:/books";
     }
 
-    @PatchMapping({"/{bookId}/release"})
+    @PostMapping({"/{bookId}/release"})
     public String release(@PathVariable("bookId") int bookId) {
         this.booksService.releaseBook(bookId);
         return "redirect:/books/" + bookId;
